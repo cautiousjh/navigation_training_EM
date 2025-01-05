@@ -1,3 +1,3 @@
 # Navigation training to enhance episodic memory
 
-#### The main contents will be reorganized soon.
+#### All codes will be updated soon. Organized codes will be provideded upon request. 
