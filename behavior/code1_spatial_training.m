@@ -14,10 +14,8 @@ metric = spatial_metric_sess_wise; y_lim = [0.65 1]; color = COLOR_SPATIAL; y_ti
 
 data = cellfun(@(x) x(flag), metric(1:7), 'uni', 0);
 
-
 figure;
 hold on
-
 for i = 1:length(data{1})
     plot(cellfun(@(x) x(i), data), color=[.2 .2 .2 .2], linewidth=1)
 end
@@ -49,7 +47,6 @@ metric = spatial_metric_training; metric_corr = spatial_metric_training_corr;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 data = {metric(flag)};  
-
 
 % plot
 figure;
