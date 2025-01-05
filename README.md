@@ -1,3 +1,3 @@
-# navigation_training_EM
+# Navigation training to enhance episodic memory
 
-#### The main contents will be updated soon. Codes and data will be provided upon request.
+#### The main contents will be updated soon. Codes and data will be provided immediately upon request.
