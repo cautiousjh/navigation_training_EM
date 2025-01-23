@@ -6,9 +6,6 @@
 flag = group==1;
 % flag = group==0;
 
-% flag = group==1 & spatial_metric_training >= nanmedian(spatial_metric_training); 
-% flag = group==1 & spatial_metric_training <= nanmedian(spatial_metric_training);
-
 metric = spatial_metric_sess_wise; y_lim = [0.65 1]; color = COLOR_SPATIAL; y_ticks = .6:.1:1;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -43,7 +40,7 @@ func_stats_compare(data{1}(flag1),data{1}(flag2))
 %%%%%%%%%%%%%%%%%%%%%%%%%
 flag = group==1;
 
-metric = spatial_metric_training; metric_corr = spatial_metric_training_corr; 
+metric = spatial_metric_training;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 data = {metric(flag)};  
@@ -130,7 +127,7 @@ jh_set_fig(scale=0.2)
 cellfun(@signrank, data)
 
 
-%% group comparison -continuously
+%% group comparison continuously
 
 % parameters
 prctile_list = 30:70;

@@ -1,7 +1,11 @@
-%% parameters
-
+%% set parameters
 sbj_list = split(num2str(1:32));
 path_behav = '../data/data_processed_sbj/';
+
+num_spatial_context = 5;
+
+aux_func_get_residual = @(mdl) mdl.Residuals.Raw;
+func_get_residual = @(x,y) aux_func_get_residual(fitlm(x(:),y(:)));
 
 COLOR_BORDER = [.7 .7 .7];
 
@@ -12,11 +16,6 @@ COLOR_EM = [255 116 108] / 255;
 COLOR_SPATIAL_CTRL = jh_color_modify(COLOR_SPATIAL, 'saturation',0.1);
 COLOR_WORD_CTRL = jh_color_modify(COLOR_WORD, 'saturation',0.1);
 COLOR_EM_CTRL = jh_color_modify(COLOR_EM, 'saturation',0.1);
-
-num_spatial_context = 5;
-
-aux_func_get_residual = @(mdl) mdl.Residuals.Raw;
-func_get_residual = @(x,y) aux_func_get_residual(fitlm(x(:),y(:)));
 
 %% load behavior data
 data_all = {};
@@ -50,27 +49,7 @@ fprintf('CONTROL \n');
 fprintf('%d subjects (%d male, %d female)\n', length(age_temp), sum(sex_temp==1), sum(sex_temp==0))
 fprintf('age: %.2f (sd: %.2f)\n\n', mean(age_temp), std(age_temp))
 
-%% elapsed time
-time_all = [];
-for sbj_i = 1:length(data_all)
-    sessions = data_all{sbj_i}.spatial.sess(2:7);
-    temp = [];
-    for sess_i = 1:length(sessions)
-        try
-            temp(sess_i) = sum(arrayfun(@(trial) trial.enc.time_all + trial.ret.time_all + 35, ...
-                                        sessions(sess_i).trials) );
-        catch
-            temp(sess_i) = sum(arrayfun(@(trial) trial.enc.time_all + 35, ...
-                                        sessions(sess_i).trials) );
-        end
-    end
-    time_all(sbj_i) = mean(temp);
-end
-time_all = time_all / 60;
-flag = group==1; fprintf('exp: %.2f (sd: %.2f)\n\n', mean(time_all(flag)), std(time_all(flag)))
-flag = group==0; fprintf('ctrl: %.2f (sd: %.2f)\n\n', mean(time_all(flag)), std(time_all(flag)))
-
-%% get spatial metrics
+%% get navigation metrics
 
 spatial_metric_sess_wise = func_get_spatial_metric_sess_wise(data_all, 'acc_coin');
 spatial_metric_sess_wise_raw = func_get_spatial_metric_sess_wise(data_all, 'err_coin');
@@ -94,7 +73,5 @@ spatial_metric_sess_wise_coin_order = ...
 
 em_metric_sess1 = func_get_em_metric_all(data_all, 1, 1:5);
 em_metric_sess2 = func_get_em_metric_all(data_all, 2, 1:5);
-
-%%
 
 
