@@ -38,19 +38,36 @@ for sbj_i = 1:length(data_all)
         metric.where.recog(trial_idx) = mean( trial.correct.space(pos) );
         metric.where.when(trial_idx) = mean( trial.correct.space_time(pos) );
 
+        % additional overall metrics
+        metric.what_where(trial_idx) = mean( trial.correct.obj_space(pos) );
+
+        correct_what = trial.correct.obj_time(pos);
+        correct_where = trial.correct.space_time(pos);
+        correct_what_where = trial.correct.obj_space(pos);
+        correct_both = trial.correct.obj_space_time(pos);
+
+        metric.n_incorrect(trial_idx) = sum(~correct_both);
+        
         temp = correct_where(~correct_both) - correct_what(~correct_both);
         if isempty(temp); temp = nan; else; temp = mean(temp); end
         metric.where_bias(trial_idx) = temp;
 
         % confidence
         temp_conf = trial.conf_obj(pos); temp_correct = trial.correct.obj_time(pos)==1;
-        temp_conf_what = temp_conf; temp_correct_what = temp_correct;
+        temp_conf_what = temp_conf;
         metric.conf.what.overall(trial_idx) = mean(temp_conf);
         metric.conf.what.correct(trial_idx) = mean(temp_conf(temp_correct));
         metric.conf.what.incorrect(trial_idx) = mean(temp_conf(~temp_correct));
         metric.conf.what.n_correct(trial_idx) = sum(temp_correct);
         metric.conf.what.n_incorrect(trial_idx) = sum(~temp_correct);
 
+        temp_conf = trial.conf_basket(pos); temp_correct = trial.correct.space_time(pos)==1;
+        temp_conf_where = temp_conf; 
+        metric.conf.where.overall(trial_idx) = mean(temp_conf);
+        metric.conf.where.correct(trial_idx) = mean(temp_conf(temp_correct));
+        metric.conf.where.incorrect(trial_idx) = mean(temp_conf(~temp_correct));
+        metric.conf.where.n_correct(trial_idx) = sum(temp_correct);
+        metric.conf.where.n_incorrect(trial_idx) = sum(~temp_correct);
     end
 
     metric_indiv_all{sbj_i} = metric;

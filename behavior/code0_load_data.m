@@ -1,6 +1,6 @@
 %% set parameters
 sbj_list = split(num2str(1:32));
-path_behav = '../data/data_processed_sbj/';
+path_behav = '../data_behavior/';
 
 num_spatial_context = 5;
 
@@ -52,22 +52,18 @@ fprintf('age: %.2f (sd: %.2f)\n\n', mean(age_temp), std(age_temp))
 %% get navigation metrics
 
 spatial_metric_sess_wise = func_get_spatial_metric_sess_wise(data_all, 'acc_coin');
-spatial_metric_sess_wise_raw = func_get_spatial_metric_sess_wise(data_all, 'err_coin');
 
 [spatial_metric_training, spatial_metric_training_cov] = ...
     func_get_spatial_metric_training(data_all, 'acc_coin','slope',1,7);
-[spatial_metric_training_corr, spatial_metric_training_cov_corr] = ...
-    func_get_spatial_metric_training(data_all, 'acc_coin','corr',1,7);
 
 
-[spatial_metric_training_coin_order, spatial_metric_training_cov_coin_order] = ...
-    arrayfun(@(i) func_get_spatial_metric_training(data_all, 'acc_coin','slope',1,7,i), 1:8, 'uni', 0);
+spatial_metric_flat = func_get_spatial_metric_flat(data_all,'acc_coin');
 
-[spatial_metric_training_corr_coin_order, spatial_metric_training_corr_cov_coin_order] = ...
-    arrayfun(@(i) func_get_spatial_metric_training(data_all, 'acc_coin','corr',1,7,i), 1:8, 'uni', 0);
+spatial_metric_sess_wise_cont = arrayfun(@(x) func_get_spatial_metric_sess_wise(data_all, prctile(spatial_metric_flat,x)), 1:100, 'uni',0);
 
-spatial_metric_sess_wise_coin_order = ...
-    arrayfun(@(i) func_get_spatial_metric_sess_wise(data_all, 'acc_coin',i), 1:8, 'uni', 0);
+[spatial_metric_training_cont, spatial_metric_training_cov_cont] = ...
+    arrayfun(@(x) func_get_spatial_metric_training(data_all, prctile(spatial_metric_flat,x),'slope',1,7),1:100, 'uni', 0);
+
 
 %% get EM metrics
 
@@ -75,3 +71,4 @@ em_metric_sess1 = func_get_em_metric_all(data_all, 1, 1:5);
 em_metric_sess2 = func_get_em_metric_all(data_all, 2, 1:5);
 
 
+%%

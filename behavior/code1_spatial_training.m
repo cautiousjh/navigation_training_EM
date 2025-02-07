@@ -32,7 +32,7 @@ flag = group==1 & spatial_metric_training > nanmedian(spatial_metric_training); 
 flag = group==1 & spatial_metric_training <= nanmedian(spatial_metric_training); flag2=flag;
 data = cellfun(@(x) x, metric(1:7), 'uni', 0);
 
-func_stats_compare(data{1}(flag1),data{1}(flag2))
+% func_stats_compare(data{1}(flag1),data{1}(flag2))
 
 %% training index (for one metric)
 
@@ -55,7 +55,7 @@ xticks(1); xticklabels({' '});
 yline(0,'--k','linewidth',1.5)
 jh_set_fig(scale=1.3)
 
-func_stats_single(data{1})
+% func_stats_single(data{1})
 
 %% group comparison - 2bars & 4bars
 
@@ -104,7 +104,7 @@ yticks(y_ticks2)
 jh_set_fig('position',[10 3])
 
 % stats
-func_stats_training(metric_sess1, metric_sess8, group, sex)
+% func_stats_training(metric_sess1, metric_sess8, group, sex)
 
 
 %% training index continuously
@@ -160,7 +160,6 @@ jh_shaded_plot(prctile_list,avg,err, color_ctrl, 'linewidth',2.5);
 ylim([-0.1 0.27])
 yline(0,'--k','linewidth',1.5)
 
-% xlim([24,76])
 jh_set_fig(scale=0.2)
 
 [~,p] = cellfun(@(x,y) ttest2(x,y), data1, data2)

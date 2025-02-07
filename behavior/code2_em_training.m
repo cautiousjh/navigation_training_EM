@@ -32,19 +32,6 @@ color_exp = color;
 color_ctrl = jh_color_modify(color_exp, 'saturation',0.5, 'value', 1);
 
 
-% 4 bars
-data = { metric_pre(group(flag_sbj)==1),metric_post(group(flag_sbj)==1),  ...
-         metric_pre(group(flag_sbj)==0),metric_post(group(flag_sbj)==0) };
-color = { color_exp; color_exp;  color_ctrl ; color_ctrl};
-
-figure;
-[fig_box,x_ticks] = jh_boxchart(data,'color',color, 'DrawPoint',true, 'DrawMedianLine',true, divider=2, DrawPointLine={[1,2],[3,4]});%
-
-xticks(x_ticks)
-xticklabels({' '})
-jh_set_fig()
-
-
 % 2 bars
 data = {metric(group(flag_sbj)==1), metric(group(flag_sbj)==0)};
 color = {color_exp ; color_ctrl};
