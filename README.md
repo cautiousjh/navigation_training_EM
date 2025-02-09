@@ -2,6 +2,7 @@
 
 #### Software requirements: MATLAB 2022a or higher
 
+#### Neural analysis code will be updated soon
 ---
 
 ## Behavioral Analysis
@@ -23,7 +24,7 @@ Run these after completing the behavioral analysis:
 1) Run `code_whole_training_correlations.m` to generate whole-brain correlations between behavioral and neural enhancements.
 2) Run `code_roi_training_correlations.m` to analyze ROI-level correlations between behavioral and neural enhancements.
 
-- `code_roi_process.m` processes whole-brain beta into ROI-level data, but segmentation data is omitted in this repository.\
+`code_roi_process.m` processes whole-brain beta into ROI-level data, but segmentation data is omitted in this repository.\
 Instead, processed data is provided in the same folder.
 
 
